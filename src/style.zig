@@ -2,7 +2,7 @@ const std = @import("std");
 pub const Style = struct {
     use_color: bool,
     pub fn detect() Style {
-        return .{ .use_color = std.io.getStdOut().isTty() };
+        return .{ .use_color = std.Io.getStdOut().isTty() };
     }
     fn out(self: Style, code: []const u8, text: []const u8, w: anytype) !void {
         if (self.use_color) try w.print("\x1b[{s}m{s}\x1b[0m", .{ code, text }) else try w.print("{s}", .{text});
