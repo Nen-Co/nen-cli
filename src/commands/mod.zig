@@ -6,14 +6,14 @@ pub const InstallError = error{
 };
 
 fn cmd_help(sty: style.Style) !void {
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try sty.banner(w);
     try w.writeAll("Usage: nen <group> <command> [args]\n\nGroups:\n  db      Graph database ops (status)\n  install Package management (install, list, update)\n  cache   (coming)\n  flow    (coming)\n\nExamples:\n  nen db status ./data\n  nen install nen-net\n  nen install nen-io --version v0.1.0\n\n");
 }
 
 fn db_status(sty: style.Style, args: [][]const u8) !void {
     _ = args;
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try sty.accent("NenDB Status\n", w);
     try w.writeAll("Database functionality coming soon!\n");
     try w.writeAll("For now, use 'nen install' to manage packages.\n");
@@ -21,7 +21,7 @@ fn db_status(sty: style.Style, args: [][]const u8) !void {
 
 fn db_init(sty: style.Style, args: [][]const u8) !void {
     _ = args;
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try sty.accent("NenDB Init\n", w);
     try w.writeAll("Database initialization coming soon!\n");
     try w.writeAll("For now, use 'nen install' to manage packages.\n");
@@ -30,7 +30,7 @@ fn db_init(sty: style.Style, args: [][]const u8) !void {
 fn db_up(sty: style.Style, args: [][]const u8) !void {
     _ = sty;
     _ = args;
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.writeAll("NenDB startup coming soon!\n");
     try w.writeAll("For now, use 'nen install' to manage packages.\n");
 }
@@ -38,7 +38,7 @@ fn db_up(sty: style.Style, args: [][]const u8) !void {
 fn db_snapshot(sty: style.Style, args: [][]const u8) !void {
     _ = sty;
     _ = args;
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.writeAll("NenDB snapshots coming soon!\n");
     try w.writeAll("For now, use 'nen install' to manage packages.\n");
 }
@@ -46,7 +46,7 @@ fn db_snapshot(sty: style.Style, args: [][]const u8) !void {
 fn db_restore(sty: style.Style, args: [][]const u8) !void {
     _ = sty;
     _ = args;
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.writeAll("NenDB restore coming soon!\n");
     try w.writeAll("For now, use 'nen install' to manage packages.\n");
 }
@@ -54,7 +54,7 @@ fn db_restore(sty: style.Style, args: [][]const u8) !void {
 // Package management commands
 fn install_package(sty: style.Style, args: [][]const u8) !void {
     if (args.len == 0) {
-        const w = std.Io.getStdOut().writer();
+        const w = std.io.getStdOut().writer();
         try sty.accent("Error: Package name required\n", w);
         try w.writeAll("Usage: nen install <package-name> [--version <version>]\n");
         try w.writeAll("Available packages: nen-net, nen-io, nen-json, nenflow, nencache, nenff, nen-cli\n");
@@ -73,7 +73,7 @@ fn install_package(sty: style.Style, args: [][]const u8) !void {
         }
     }
     
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.print("Installing {s}...\n", .{package_name});
     
     // Determine the target version
@@ -111,7 +111,7 @@ fn install_package(sty: style.Style, args: [][]const u8) !void {
 }
 
 fn list_packages(sty: style.Style) !void {
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try sty.accent("Available Nen Packages\n", w);
     try w.writeAll("\n");
     
@@ -139,14 +139,14 @@ fn list_packages(sty: style.Style) !void {
 
 fn update_package(sty: style.Style, args: [][]const u8) !void {
     if (args.len == 0) {
-        const w = std.Io.getStdOut().writer();
+        const w = std.io.getStdOut().writer();
         try sty.accent("Error: Package name required\n", w);
         try w.writeAll("Usage: nen update <package-name>\n");
         return;
     }
     
     const package_name = args[0];
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     
     try w.print("Updating {s}...\n", .{package_name});
     
@@ -196,7 +196,7 @@ fn get_repo_url(package_name: []const u8) ?[]const u8 {
 fn clone_repository(repo_url: []const u8, install_dir: []const u8) !void {
     // For now, we'll simulate the clone process
     // In a real implementation, you'd use libgit2 or execute git commands
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.print("Would clone {s} to {s}\n", .{repo_url, install_dir});
     
     // Create a placeholder file to simulate installation
@@ -210,12 +210,12 @@ fn clone_repository(repo_url: []const u8, install_dir: []const u8) !void {
 }
 
 fn pull_latest_changes(install_dir: []const u8) !void {
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.print("Would pull latest changes for {s}\n", .{install_dir});
 }
 
 fn build_package(install_dir: []const u8) !void {
-    const w = std.Io.getStdOut().writer();
+    const w = std.io.getStdOut().writer();
     try w.print("Would build package in {s}\n", .{install_dir});
     
     // Create a build.zig file to simulate the build process
